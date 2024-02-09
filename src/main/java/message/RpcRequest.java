@@ -1,0 +1,42 @@
+
+package message;
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Arrays;
+
+/**
+ * RpcRequest represents the request for a remote procedure call.
+ * It includes the necessary information for the server to identify
+ * the method to be invoked and the parameters to be passed.
+ */
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+public class RpcRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    // The name of the interface the remote method belongs to
+    private String interfaceName;
+
+    // The name of the method to be called
+    private String methodName;
+
+    // The types of the method parameters
+    private Class<?>[] parameterTypes;
+
+    // The actual parameters of the method call
+    private Object[] parameters;
+
+    // Unique identifier for the request
+    private String requestId;
+
+    // Constructors, Getters and Setters
+
+}
