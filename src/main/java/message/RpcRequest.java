@@ -20,7 +20,12 @@ import java.util.Arrays;
 @NoArgsConstructor
 public class RpcRequest implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public static RpcRequestBuilder builder;
+
+    public static RpcRequestBuilder builder(){
+        builder = new RpcRequestBuilder();
+        return builder;
+    }
 
     // The name of the interface the remote method belongs to
     private String interfaceName;
@@ -36,7 +41,5 @@ public class RpcRequest implements Serializable {
 
     // Unique identifier for the request
     private String requestId;
-
-    // Constructors, Getters and Setters
 
 }
