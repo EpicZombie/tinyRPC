@@ -1,13 +1,16 @@
 package client;
 
 import message.RpcRequest;
+import message.RpcResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class RpcClientProxy implements InvocationHandler {
-
+    private static final Logger logger = LoggerFactory.getLogger(RpcClientProxy.class);
     private String host;
     private int port;
 
@@ -22,13 +25,15 @@ public RpcClientProxy(String host, int port) {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        logger.info("调用方法:{}#",method.getDeclaringClass().getName(),method.getName());
         RpcRequest rpcRequest = RpcRequest.builder()
                 .interfaceName(method.getDeclaringClass().getName())
                 .methodName(method.getName())
                 .parameters(args)
                 .parameterTypes(method.getParameterTypes())
                 .build();
-
-        return null;
+        RpcClient rpcClient = new RpcClient();
+//        return ((RpcResponse)rpcClient.sendRequest(rpcRequest,host,port)).getData();
+        return rpcClient.sendRequest(rpcRequest,host,port);
     }
 }

@@ -16,7 +16,7 @@ public class RpcResponse<T> implements Serializable {
         // Unique identifier for the request
         private String requestId;
 
-        private int statusCode;
+        private Integer statusCode;
 
         // The result of the method invocation
         private Object message;
@@ -29,6 +29,13 @@ public class RpcResponse<T> implements Serializable {
         public static <T> RpcResponse<T> success(T data){
                 RpcResponse<T> response = new RpcResponse<>();
                 response.setStatusCode(200);
+                response.setData(data);
+                return response;
+        }
+
+        public static <T> RpcResponse<T> fail(T data){
+                RpcResponse<T> response = new RpcResponse<>();
+                response.setStatusCode(400);
                 response.setData(data);
                 return response;
         }

@@ -1,8 +1,13 @@
 package client;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+
+import enumeration.ResponseCode;
+import enumeration.RpcError;
+import exception.RpcException;
 import message.RpcRequest;
+import message.RpcResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,12 +24,22 @@ public class RpcClient {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream.writeObject(rpcRequest);
             outputStream.flush();
-            return inputStream.readObject();
+            RpcResponse rpcResponse = (RpcResponse) inputStream.readObject();
+            if(rpcResponse == null){
+                logger.error("服务调用失败,service:{}" + rpcRequest.getInterfaceName());
+                throw new RpcException(RpcError.SERVICE_INVOCATION_FAILURE,"service:"+rpcRequest.getInterfaceName());
+            }
+            if(rpcResponse.getStatusCode() == null || rpcResponse.getStatusCode() != ResponseCode.SUCCESS.getCode()){
+                logger.error("服务调用失败,service:{},response:{}" + rpcRequest.getInterfaceName());
+                throw new RpcException(RpcError.SERVICE_INVOCATION_FAILURE,"service:"+rpcRequest.getInterfaceName());
+            }
+//            return inputStream.readObject();
+            return rpcResponse.getData();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException | ClassNotFoundException e) {
             logger.error("调用时有错误发生"+e);
-            return null;
+            throw new RpcException("服务调用失败:",e);
         }
     }
 

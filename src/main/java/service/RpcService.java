@@ -1,5 +1,5 @@
 package service;
-import Object.HelloObject;
+import RpcObject.HelloObject;
 public interface RpcService {
 
     String hello(HelloObject object);
