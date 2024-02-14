@@ -24,6 +24,9 @@ public class RequestHandler implements Runnable{
         this.service = service;
     }
 
+    public RequestHandler() {
+    }
+
     @Override
     public void run() {
         try(ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
