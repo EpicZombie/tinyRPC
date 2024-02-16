@@ -1,7 +1,6 @@
 package client;
 
 import message.RpcRequest;
-import message.RpcResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,12 +10,10 @@ import java.lang.reflect.Proxy;
 
 public class RpcClientProxy implements InvocationHandler {
     private static final Logger logger = LoggerFactory.getLogger(RpcClientProxy.class);
-    private String host;
-    private int port;
+    private final RpcClient client;
 
-public RpcClientProxy(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public RpcClientProxy(RpcClient client) {
+        this.client = client;
     }
 
     public <T> T getProxy(Class<T> clazz){
@@ -32,8 +29,8 @@ public RpcClientProxy(String host, int port) {
                 .parameters(args)
                 .parameterTypes(method.getParameterTypes())
                 .build();
-        RpcClient rpcClient = new RpcClient();
+        RpcRequest request = new RpcRequest(method.getDeclaringClass().getName(),method.getName(), method.getParameterTypes(),args,"");
 //        return ((RpcResponse)rpcClient.sendRequest(rpcRequest,host,port)).getData();
-        return rpcClient.sendRequest(rpcRequest,host,port);
+        return client.sendRequest(request);
     }
 }

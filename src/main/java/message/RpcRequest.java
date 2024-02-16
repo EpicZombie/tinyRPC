@@ -1,10 +1,7 @@
 
 package message;
 import jdk.nashorn.internal.objects.annotations.Constructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -18,10 +15,10 @@ import java.util.Arrays;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class RpcRequest implements Serializable {
 
     public static RpcRequestBuilder builder;
-
     public static RpcRequestBuilder builder(){
         builder = new RpcRequestBuilder();
         return builder;

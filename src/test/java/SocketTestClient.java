@@ -1,19 +1,17 @@
 import RpcObject.HelloObject;
 import client.RpcClientProxy;
+import client.SocketClient;
 import service.RpcService;
 
-import java.lang.reflect.Proxy;
 
-
-public class TestClient {
+public class SocketTestClient {
 
     public static void main(String[] args) {
-
-        RpcClientProxy proxy = new RpcClientProxy("127.0.0.1",9000);
+        SocketClient client = new SocketClient("127.0.01",9000);
+        RpcClientProxy proxy = new RpcClientProxy(client);
         RpcService rpcService = proxy.getProxy(RpcService.class);
         HelloObject helloObject = new HelloObject(1,"HelloObjectMessage");
         String res = rpcService.hello(helloObject);
         System.out.printf(res+"\n");
-
     }
 }
