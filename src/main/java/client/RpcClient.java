@@ -38,7 +38,7 @@ public class RpcClient {
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException | ClassNotFoundException e) {
-            logger.error("调用时有错误发生"+e);
+            System.out.println("调用时有错误发生"+e);
             throw new RpcException("服务调用失败:",e);
         }
     }
