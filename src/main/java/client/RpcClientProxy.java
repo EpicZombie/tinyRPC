@@ -23,14 +23,9 @@ public class RpcClientProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         logger.info("调用方法:{}#",method.getDeclaringClass().getName(),method.getName());
-        RpcRequest rpcRequest = RpcRequest.builder()
-                .interfaceName(method.getDeclaringClass().getName())
-                .methodName(method.getName())
-                .parameters(args)
-                .parameterTypes(method.getParameterTypes())
-                .build();
         RpcRequest request = new RpcRequest(method.getDeclaringClass().getName(),method.getName(), method.getParameterTypes(),args,"");
 //        return ((RpcResponse)rpcClient.sendRequest(rpcRequest,host,port)).getData();
         return client.sendRequest(request);
     }
+
 }

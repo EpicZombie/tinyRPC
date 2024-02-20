@@ -12,7 +12,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <guava.version>29.0-jre</guava.version>
     </properties>
+
     <dependencies>
         <!-- Netty all-in-one bundle -->
         <dependency>
@@ -34,6 +36,12 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.protobuf</groupId>
@@ -47,6 +55,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.28</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>4.0.2</version>
         </dependency>
 
         <dependency>
@@ -64,7 +78,18 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.11.0</version>
         </dependency>
+    <!--引入google guava，它相当于jdk的拓展，更方便强大的编程-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.63</version>
+        </dependency>
 
     </dependencies>
 

@@ -18,10 +18,8 @@ import java.net.UnknownHostException;
 
 public class SocketClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(SocketClient.class);
-
     private final String host;
     private final int port;
-
     public SocketClient(String host, int port) {
         this.host = host;
         this.port = port;
